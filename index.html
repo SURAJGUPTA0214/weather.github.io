@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Weather in City</title>
+	<link rel="stylesheet" type="text/css" href="style.css">
+
+	<!-- *************************************** links ****************************** -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/waypoints/4.0.1/jquery.waypoints.min.js" integrity="sha256-jDnOKIOq2KNsQZTcBTEnsp76FnfMEttF6AV2DF2fFNE=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Counter-Up/1.0.0/jquery.counterup.min.js" integrity="sha256-JtQPj/3xub8oapVMaIijPNoM0DHoAtgh/gwFYuN5rik=" crossorigin="anonymous"></script>
+	<!-- Latest compiled JavaScript -->
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+	<!-- font links -->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" integrity="sha256-NuCn4IvuZXdBaFKJOAcsU2Q3ZpwbdFisd5dux4jkQ5w=" crossorigin="anonymous" />
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"> </script>
+	<style>
+		body{
+			background: #ebebeb;
+		}
+
+		.mydiv{
+			box-shadow: rgba(0, 0, 0, 0.75) 10px 23px 36px -6px;
+			border-radius: 10px;
+			background: white;
+			padding: 15px;
+		}		
+	</style>	
+</head>
+<body>
+
+	<nav class="navbar bg-dark navbar-dark">
+		<div>
+			<a class="navbar-brand" href="#">
+	          <img src="images/logo.png" alt="" style="height: 90px; width: 120px;" >
+	        </a>
+    	</div>
+    	<div>
+    		<h4 style="color: white">CITY WEATHER</h4>
+    	</div>
+    	
+    	<div>
+       		 <marquee > Welcome User ! what is the weather now? Don't know ? don't worry.. search it </marquee>
+        </div>
+	</nav>
+
+<div class=" jumbotron img">
+	<div class="container">
+		<h2 class="text-center" style="color: #ebf910; margin-top: 80px;"> We Deliever Forecasts Across Every City In The World <span id="change"> </span> </h2>
+	</div>	
+</div>
+
+<div class="parent" style="display: grid; place-items:center; margin: 50px 0px">
+	<div class="child">
+			<input type="name" name="" placeholder="Enter city name" id="citysearch"> &nbsp; <button class="btn btn-primary" id="mybtn">Search</button>
+	</div>
+</div>
+	<div class="container" style="text-align: center;">
+		<div class="row" >
+			<div class="col-lg-5 col-12 ">
+				<div class="mydiv">
+					<h2 id="cityshow" style="text-transform: uppercase; font-weight: bold; color: #ea4747"> </h2><br>
+					<img src="" id="tempicon" style="width: 100px; height: 70px; margin-left: 40px" >
+					<span style="font-size: 48px; font-weight: bold;" id="tempshow"> <!-- Show temp here  --></span>
+					<h2 id="Feels_Like"> <!-- Feels_Like --> </h2>
+				</div>
+			</div>
+			<div class="col-lg-7">
+				<div class="mydiv" style="min-height: 100%; height: 100%;">
+					<h2 id="descriptionshow"> <!-- type of temp --> </h2>
+					<h3 id="max-temp"><!--  Max-temp  --></h3>
+					<h3 id="min-temp"> <!-- Min-temp  --></h3>
+					<h3 id="wind-speed"> <!-- wind-speed  --></h3>
+				</div>
+				
+			</div>
+		</div>
+	</div>
+
+<!-- Copyright -->
+  <div class="footer-copyright text-center py-3" style="background-color: #96da88; margin-top: 45px;">© 2020 Copyright:
+    <a href="#" style="color: black">Suraj Gupta</a>
+  </div>
+<!-- Copyright -->
+
+<script type="text/javascript">
+	document.getElementById("mybtn").onclick= ()=>{
+		let pass = document.getElementById("citysearch").value;
+		async function getapi(){
+			const getdata = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${pass}&units=metric&APPID=13cda2c8465d38f251811fd016af573a`);
+			const finaldata = await getdata.json();
+			console.log(finaldata);
+			const mydataone=finaldata.name;
+			const mydatatwo=finaldata.main.temp;
+			const feel = finaldata.main.feels_like;
+		    var mydatathree=finaldata.weather[0].description;
+			const mydataicon_id=finaldata.weather[0].id;
+			const mydatafour=finaldata.main.temp_min;
+			const mydatafive=finaldata.main.temp_max;
+			const mydatasix=finaldata.wind.speed;
+			// const mydataone=finaldata.name;
+			// const mydataone=finaldata.name;
+
+			const feels=Math.round(feel);
+			const mydatatwo1=Math.round(mydatatwo);
+			const mydatafour1=Math.round(mydatafour);
+			const mydatafive1=Math.round(mydatafive);
+			
+			document.getElementById("cityshow").innerHTML= "City: " + mydataone;
+			document.getElementById("tempshow").innerHTML=" " + mydatatwo1+"°C";
+			document.getElementById("Feels_Like").innerHTML="Feels Like: " + feels+"°C";
+			document.getElementById("descriptionshow").innerHTML="Desc.: " + mydatathree;
+			document.getElementById("max-temp").innerHTML="Max-Temp: "+ mydatafour1 +"°C";
+			document.getElementById("min-temp").innerHTML="Min-Temp: "+mydatafive1 +"°C";
+			document.getElementById("wind-speed").innerHTML="Wind Speed: "+mydatasix +" Km/h";
+			if(mydataicon_id<=233){
+
+			}
+			else if (mydataicon_id<=233) {
+				tempicon.src='images/thunder.svg';
+
+			}else if(mydataicon_id<=321){
+				tempicon.src='images/drizzle.png';
+			}else if(mydataicon_id<=531){
+				tempicon.src='images/rain.svg';
+			}else if(mydataicon_id<=622){
+				tempicon.src='images/snow.png';
+			}else if(mydataicon_id<=781){
+				tempicon.src='images/atmosphere.svg';
+			}else{
+				tempicon.src='images/clear.svg';
+			}
+			
+		}
+		getapi();
+	}
+	
+</script>
+
+
+
+
+
+
+	
+	
+</body>
+</html>

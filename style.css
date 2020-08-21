@@ -1,0 +1,31 @@
+*{ margin: 0; padding: 0; box-sizing: border-box; font-family: 'muli' }
+.img{
+	background-image: linear-gradient(rgba(0,0,0,0.6),rgba(0,0,0,0.6)), url('images/one.jpg');
+	background-size: 100% 100%;
+	background-repeat: no-repeat;
+	height: 320px;
+
+}
+marquee{
+	color: white;
+
+	letter-spacing: 2px;
+}
+#change:after {
+	content: '';
+	animation: changetext 5s infinite linear;
+	color: #03fdac;
+}
+@keyframes changetext{
+	0%{content:"Hourly.";}
+	100%{content:"Every Day.";}
+}
+#one{
+	display: grid;
+	align-items: center;
+	
+
+}
+#two{
+	
+}
